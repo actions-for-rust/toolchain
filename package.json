@@ -32,7 +32,7 @@
         "url": "https://github.com/actions-rs/toolchain/issues"
     },
     "dependencies": {
-        "@actions-rs/core": "^0.1.6",
+        "@actions-for-rust/core": "^0.1.6",
         "@actions/core": "^1.10.0",
         "@actions/exec": "^1.1.1",
         "@actions/io": "^1.1.2"
@@ -42,7 +42,7 @@
         "@types/node": "^14.14.7",
         "@typescript-eslint/eslint-plugin": "^4.8.1",
         "@typescript-eslint/parser": "^4.8.1",
-        "@zeit/ncc": "^0.22.3",
+        "@vercel/ncc": "^0.36.1",
         "eslint": "^7.13.0",
         "eslint-config-prettier": "^6.15.0",
         "eslint-plugin-prettier": "^3.1.4",
