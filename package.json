@@ -18,7 +18,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/actions-rs/toolchain.git"
+        "url": "git+https://github.com/actions-for-rust/toolchain.git"
     },
     "keywords": [
         "actions",
@@ -26,10 +26,10 @@
         "rustup",
         "toolchain"
     ],
-    "author": "actions-rs",
+    "author": "actions-for-rust",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/actions-rs/toolchain/issues"
+        "url": "https://github.com/actions-for-rust/toolchain/issues"
     },
     "dependencies": {
         "@actions-for-rust/core": "^0.1.7",
