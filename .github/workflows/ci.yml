@@ -6,11 +6,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Create npm configuration
-        run: echo "//npm.pkg.github.com/:_authToken=${token}" >> ~/.npmrc
-        env:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
       - uses: actions/checkout@v3
       - run: npm ci
       # Temporary disabling in order to release urgent fix
