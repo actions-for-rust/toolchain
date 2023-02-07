@@ -32,7 +32,7 @@
         "url": "https://github.com/actions-rs/toolchain/issues"
     },
     "dependencies": {
-        "@actions-for-rust/core": "^0.1.6",
+        "@actions-for-rust/core": "^0.1.7",
         "@actions/core": "^1.10.0",
         "@actions/exec": "^1.1.1",
         "@actions/io": "^1.1.2"

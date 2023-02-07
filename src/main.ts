@@ -30,7 +30,6 @@ async function run(): Promise<void> {
     }
 
     if (opts.profile) {
-        // @ts-ignore: TS2345
         await rustup.setProfile(opts.profile);
     }
 
@@ -95,4 +94,6 @@ async function main(): Promise<void> {
     }
 }
 
-main();
+main().catch((err) => {
+    core.setFailed(err);
+});

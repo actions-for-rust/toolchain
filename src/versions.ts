@@ -45,10 +45,10 @@ function parseShort(stdout: string): string {
 async function getStdout(
     exe: string,
     args: string[],
-    options?: {}
+    options?: exec.ExecOptions
 ): Promise<string> {
     let stdout = "";
-    const resOptions = Object.assign({}, options, {
+    const resOptions: exec.ExecOptions = Object.assign({}, options, {
         listeners: {
             stdout: (buffer: Buffer): void => {
                 stdout += buffer.toString();

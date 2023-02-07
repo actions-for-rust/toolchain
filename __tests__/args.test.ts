@@ -1,3 +1,6 @@
+/* eslint @typescript-eslint/no-unsafe-assignment: off */
+/* eslint @typescript-eslint/no-unsafe-member-access: off */
+
 import { getToolchainArgs } from "../src/args";
 import { morph } from "mock-env";
 import { sync as tempWriteSync } from "temp-write";

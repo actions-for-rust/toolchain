@@ -2,13 +2,18 @@ import { input } from "@actions-for-rust/core";
 import { debug } from "@actions/core";
 import { existsSync, readFileSync } from "fs";
 
+type Profile = "minimal" | "default" | "full";
 export interface ToolchainOptions {
     name: string;
     target: string | undefined;
     default: boolean;
     override: boolean;
-    profile: string | undefined;
+    profile: Profile | undefined;
     components: string[] | undefined;
+}
+
+function isAcceptableProfile(profile: string): profile is Profile {
+    return ["minimal", "default", "full"].includes(profile);
 }
 
 function determineToolchain(overrideFile: string): string {
@@ -41,12 +46,17 @@ export function getToolchainArgs(overrideFile: string): ToolchainOptions {
         components = undefined;
     }
 
-    return {
-        name: determineToolchain(overrideFile),
-        target: input.getInput("target") || undefined,
-        default: input.getInputBool("default"),
-        override: input.getInputBool("override"),
-        profile: input.getInput("profile") || undefined,
-        components: components,
-    };
+    const profile = input.getInput("profile");
+    if (profile === "" || isAcceptableProfile(profile)) {
+        return {
+            name: determineToolchain(overrideFile),
+            target: input.getInput("target") || undefined,
+            default: input.getInputBool("default"),
+            override: input.getInputBool("override"),
+            profile: profile || undefined,
+            components: components,
+        };
+    } else {
+        throw Error("Invalid profile. Must be minimal, default, or full");
+    }
 }

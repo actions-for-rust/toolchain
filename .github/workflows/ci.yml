@@ -8,8 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm ci
-      # Temporary disabling in order to release urgent fix
-      #      - run: npm run lint
+      - run: npm run lint
       - run: npm run build
       - run: npm run test
 
@@ -55,7 +54,7 @@ jobs:
     steps:
       # `rustup` will need `curl` or `wget` later
       - run: apt-get update && apt-get install -y curl
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - uses: ./
         with:
           toolchain: stable
