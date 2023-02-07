@@ -11,10 +11,10 @@ jobs:
         env:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - run: npm ci
-# Temporary disabling in order to release urgent fix
-#      - run: npm run lint
+      # Temporary disabling in order to release urgent fix
+      #      - run: npm run lint
       - run: npm run build
       - run: npm run test
 
@@ -27,7 +27,7 @@ jobs:
           - macOS-latest
           - windows-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - id: toolchain
         uses: ./
         with:
@@ -47,7 +47,7 @@ jobs:
   install_nightly:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - uses: ./
         with:
           profile: minimal
@@ -56,7 +56,7 @@ jobs:
 
   install_stable_in_docker:
     runs-on: ubuntu-latest
-    container: ubuntu:latest  # Docker image, not the GitHub Actions VM
+    container: ubuntu:latest # Docker image, not the GitHub Actions VM
     steps:
       # `rustup` will need `curl` or `wget` later
       - run: apt-get update && apt-get install -y curl
@@ -68,6 +68,6 @@ jobs:
   install_stable_through_rust_toolchain_file:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - run: echo "stable" > ./rust-toolchain
       - uses: ./
