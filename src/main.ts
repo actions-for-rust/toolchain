@@ -94,6 +94,7 @@ async function main(): Promise<void> {
     }
 }
 
-main().catch((err) => {
-    core.setFailed(err);
+main().catch((error) => {
+    if (error instanceof Error) core.setFailed(error);
+    else core.setFailed(`Unknown Error: ${error}`);
 });
