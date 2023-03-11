@@ -1,10 +1,8 @@
 # `rust-toolchain` Action
 
-[![Sponsoring](https://img.shields.io/badge/Support%20it-Say%20%22Thank%20you!%22-blue)](https://actions-rs.github.io/#sponsoring)
 ![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)
-[![Gitter](https://badges.gitter.im/actions-rs/community.svg)](https://gitter.im/actions-rs/community)
-![Continuous integration](https://github.com/actions-rs/toolchain/workflows/Continuous%20integration/badge.svg)
-![Dependabot enabled](https://api.dependabot.com/badges/status?host=github&repo=actions-rs/toolchain)
+![Continuous integration](https://github.com/actions-for-rust/toolchain/workflows/Continuous%20integration/badge.svg)
+![Dependabot enabled](https://api.dependabot.com/badges/status?host=github&repo=actions-for-rust/toolchain)
 
 This GitHub Action installs [Rust toolchain](https://rust-lang.github.io/rustup/concepts/toolchains.html#toolchain-specification)
 with [rustup](https://github.com/rust-lang/rustup) help.
@@ -14,14 +12,15 @@ these small papercuts for you.
 
 **Table of Contents**
 
-* [Example workflow](#example-workflow)
-* [Inputs](#inputs)
-* [Outputs](#outputs)
-* [Profiles](#profiles)
-* [Components](#components)
-* [The toolchain file](#the-toolchain-file)
-* [License](#license)
-* [Contribute and support](#contribute-and-support)
+- [`rust-toolchain` Action](#rust-toolchain-action)
+  - [Example workflow](#example-workflow)
+  - [Inputs](#inputs)
+  - [Outputs](#outputs)
+  - [Profiles](#profiles)
+  - [Components](#components)
+  - [The toolchain file](#the-toolchain-file)
+  - [License](#license)
+  - [Contribute and support](#contribute-and-support)
 
 ## Example workflow
 
@@ -35,29 +34,27 @@ jobs:
     name: Rust project
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install latest nightly
-        uses: actions-rs/toolchain@v1
+        uses: actions-for-rust/toolchain@v1
         with:
-            toolchain: nightly
-            override: true
-            components: rustfmt, clippy
+          toolchain: nightly
+          override: true
+          components: rustfmt, clippy
 
       # `cargo check` command here will use installed `nightly`
       # as it is set as an "override" for current directory
 
       - name: Run cargo check
-        uses: actions-rs/cargo@v1
+        uses: actions-for-rust/cargo@v1
         with:
           command: check
 ```
 
-See [additional recipes here](https://github.com/actions-rs/meta).
-
 ## Inputs
 
 | Name         | Required | Description                                                                                                                                         | Type   | Default |
-| ------------ | :------: | ----------------------------------------------------------------------------------------------------------------------------------------------------| ------ | --------|
+| ------------ | :------: | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ------- |
 | `toolchain`  |          | [Toolchain](https://github.com/rust-lang/rustup.rs#toolchain-specification) name to use, ex. `stable`, `nightly`, `nightly-2019-04-20`, or `1.32.0` | string | stable  |
 | `target`     |          | Additionally install specified target for this toolchain, ex. `x86_64-apple-darwin`                                                                 | string |         |
 | `default`    |          | Set installed toolchain as a default toolchain                                                                                                      | bool   | false   |
@@ -72,12 +69,12 @@ in order to support toolchain files. See the details [below](#the-toolchain-file
 
 Installed `rustc`, `cargo` and `rustup` versions can be fetched from the Action outputs:
 
-| Name         | Description           | Example                         |
-| ------------ | --------------------- | ------------------------------- |
-| `rustc`      | Rustc version         | `1.40.0 (73528e339 2019-12-16)` |
-| `rustc_hash` | Rustc version hash    | `73528e339`                     |
-| `cargo`      | Cargo version         | `1.40.0 (bc8e4c8be 2019-11-22)` |
-| `rustup`     | rustup version        | `1.21.1 (7832b2ebe 2019-12-20)` |
+| Name         | Description        | Example                         |
+| ------------ | ------------------ | ------------------------------- |
+| `rustc`      | Rustc version      | `1.40.0 (73528e339 2019-12-16)` |
+| `rustc_hash` | Rustc version hash | `73528e339`                     |
+| `cargo`      | Cargo version      | `1.40.0 (bc8e4c8be 2019-11-22)` |
+| `rustup`     | rustup version     | `1.21.1 (7832b2ebe 2019-12-20)` |
 
 Note: `rustc_hash` output value can be used with [actions/cache](https://github.com/actions/cache) Action
 to store cache for different Rust versions, as it is unique across different Rust versions and builds (including `nightly`).
@@ -90,7 +87,7 @@ minimally required set of components, for example:
 
 ```yaml
 - name: Install minimal nightly
-  uses: actions-rs/toolchain@v1
+  uses: actions-for-rust/toolchain@v1
   with:
     profile: minimal
     toolchain: nightly
@@ -112,7 +109,7 @@ and in combination with the [profiles](#profiles) input it allows to install onl
 
 ```yaml
 - name: Install minimal stable with clippy and rustfmt
-  uses: actions-rs/toolchain@v1
+  uses: actions-for-rust/toolchain@v1
   with:
     profile: minimal
     toolchain: stable
@@ -125,7 +122,7 @@ to install the minimal set of `nightly` toolchain components with the `rustfmt` 
 
 ```yaml
 - name: Install minimal nightly with clippy and rustfmt
-  uses: actions-rs/toolchain@v1
+  uses: actions-for-rust/toolchain@v1
   with:
     profile: minimal
     toolchain: nightly
@@ -137,8 +134,8 @@ latest `nightly` release, this Action will attempt the downgrade till it find
 the most recent `nightly` with all components needed.\
 Note that this behavior will work only if the following two conditions apply:
 
- 1. `toolchain` input is `nightly` exactly.
- 2. At least one component is provided in `components` input.
+1.  `toolchain` input is `nightly` exactly.
+2.  At least one component is provided in `components` input.
 
 Same to the `profile` input, if installed `rustup` does not supports "components",
 it will be automatically upgraded by this Action.
@@ -156,14 +153,8 @@ Action execution will fail.
 
 ## License
 
-This Action is distributed under the terms of the MIT license, see [LICENSE](https://github.com/actions-rs/toolchain/blob/master/LICENSE) for details.
+This Action is distributed under the terms of the MIT license, see [LICENSE](https://github.com/actions-for-rust/toolchain/blob/master/LICENSE) for details.
 
 ## Contribute and support
 
 Any contributions are welcomed!
-
-If you want to report a bug or have a feature request,
-check the [Contributing guide](https://github.com/actions-rs/.github/blob/master/CONTRIBUTING.md).
-
-You can also support author by funding the ongoing project work,
-see [Sponsoring](https://actions-rs.github.io/#sponsoring).
