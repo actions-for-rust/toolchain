@@ -53,9 +53,19 @@ jobs:
     container: ubuntu:latest # Docker image, not the GitHub Actions VM
     steps:
       # `rustup` will need `curl` or `wget` later
-      - run: apt-get update && apt-get install -y curl
-      - uses: actions/checkout@v3
-      - uses: ./
+      - name: Install curl
+        run: |
+          apt-get update
+          apt-get install -y curl
+      - name: Install node16
+        if: ${{ env.ACT }}
+        run: |
+          curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+          apt-get install -y nodejs
+      - name: Checkout project
+        uses: actions/checkout@v3
+      - name: Test action
+        uses: ./
         with:
           toolchain: stable
 

@@ -1,9 +1,9 @@
+import { RustUp, ToolchainOptions } from "@actions-for-rust/core";
+import { getErrorMessage } from "@actions-for-rust/core/dist/utils/errors";
 import * as core from "@actions/core";
 import path from "path";
-
 import * as args from "./args";
 import * as versions from "./versions";
-import { RustUp, ToolchainOptions } from "@actions-for-rust/core";
 
 async function run(): Promise<void> {
     // we use path.join to make sure this works on Windows, Linux and MacOS
@@ -86,15 +86,9 @@ async function run(): Promise<void> {
 }
 
 async function main(): Promise<void> {
-    try {
-        await run();
-    } catch (error) {
-        if (error instanceof Error) core.setFailed(error);
-        else core.setFailed(`Unknown Error: ${error}`);
-    }
+    await run();
 }
 
 main().catch((error) => {
-    if (error instanceof Error) core.setFailed(error);
-    else core.setFailed(`Unknown Error: ${error}`);
+    core.setFailed(getErrorMessage(error));
 });
