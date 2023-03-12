@@ -1,5 +1,6 @@
 import * as exec from "@actions/exec";
 import * as core from "@actions/core";
+import { getErrorMessage } from "@actions-for-rust/core/dist/utils/errors";
 
 interface Version {
     long: string;
@@ -72,8 +73,7 @@ async function rustc(): Promise<void> {
         core.setOutput("rustc", version.long);
         core.setOutput("rustc_hash", version.hash);
     } catch (e) {
-        if (e instanceof Error) core.warning(e);
-        else core.warning(`${e}`);
+        core.warning(getErrorMessage(e));
         core.setOutput("rustc", parseShort(stdout));
     }
 }
